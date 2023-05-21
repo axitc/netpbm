@@ -12,6 +12,7 @@ void etch(int layer0[YMAX][XMAX], int layer1[YMAX][XMAX]);
 void print(int layer[YMAX][XMAX]);
 /* draw */
 void fillpixel(int layer[YMAX][XMAX], int color, int x, int y);
+void drawtest(int layer[YMAX][XMAX], float slope, float intercept);
 void drawlineeqn(int layer[YMAX][XMAX], float slope, int intercept);
 void drawlineseg(int layer[YMAX][XMAX], int x1, int y1, int x2, int y2);
 void drawlinepivot(int layer[YMAX][XMAX], float slope, int x, int y);
@@ -56,6 +57,29 @@ void drawlineeqn(int layer[YMAX][XMAX], float slope, int intercept)
 			if (y == (int)(slope*x + intercept))
 				yblackat = x;
 			if (x == yblackat)
+				layer[y][x] = FIL;
+		}
+}
+
+/* FUCKING WORKS THIS TIME ! HAHAAH ! */
+void drawtest(int layer[YMAX][XMAX], float slope, float intercept)
+{
+	float intersection;
+	for (int y = 0; y < YMAX; ++y)
+		for (int x = 0; x < XMAX; ++x) {
+			/* horizontal bounding edges */
+			intersection = (y - intercept)/slope;
+			if (intersection >= x && intersection <= x+1)
+				layer[y][x] = FIL;
+			intersection = (y+1 - intercept)/slope;
+			if (intersection >= x && intersection <= x+1)
+				layer[y][x] = FIL;
+			/* vertical bounding edges */
+			intersection = slope*x + intercept;
+			if (intersection >= y && intersection <= y+1)
+				layer[y][x] = FIL;
+			intersection = slope*(x+1) + intercept;
+			if (intersection >= y && intersection <= y+1)
 				layer[y][x] = FIL;
 		}
 }

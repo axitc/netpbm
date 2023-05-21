@@ -9,7 +9,9 @@ main()
 {
 	int layer[XMAX][YMAX];
 	init(layer);
-	drawlineeqn(layer, 0.6, 30);
+	drawtest(layer, -2, 130);
+	drawtest(layer, 0.6, 40);
+	drawtest(layer,8, -450);
 	print(layer);
 	return 0;
 }
